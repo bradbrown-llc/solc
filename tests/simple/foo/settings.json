@@ -3,13 +3,16 @@
     "sources": {
         "foo.sol": {
             "urls": ["/root/solc/tests/simple/foo/foo.sol"]
+        },
+        "boo.sol": {
+            "urls": ["/root/solc/tests/simple/foo/boo.sol"]
         }
     },
     "settings": {
         "evmVersion": "paris",
         "outputSelection": {
-            "foo.sol": {
-                "Foo": ["abi", "evm.bytecode.object"]
+            "*": {
+                "*": ["abi", "evm.bytecode.object"]
             }
         }
     }

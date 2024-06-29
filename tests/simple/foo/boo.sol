@@ -1,13 +1,13 @@
 // SPDX-License-Identifier: 0BSD
 pragma solidity 0.8.18;
 
-contract Foo {
+contract Baz {
     function foo() external pure returns (uint) {
         return 8000;
     }
 }
 
-contract Bar {
+contract Boo {
     function bar() external returns (bool) {
         return true;
     }

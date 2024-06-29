@@ -1,4 +1,5 @@
-import z from 'https://deno.land/x/zod@v3.22.4/index.ts';
+import { solcOut } from "./schemas/solcOut/solcOut.ts";
+
 
 export class Solc {
 
@@ -41,31 +42,10 @@ export class Solc {
         await writer.close()
         const cmdOut = await proc.output()
         const out = new TextDecoder().decode(cmdOut.stdout)
+
         console.log(out)
-
-        // build output parsing schema
-        // const object = z.string()
-        // const bytecode = z.object({ object })
-        // const evm = z.object({ bytecode })
-        // const abi = z.unknown()
-        // const contract = z.record(z.string(), z.object({ abi, evm }))
-        // const source = z.record(z.string(), contract)
-        // const contracts = z.record(z.string(), source).optional()
-        //     .transform(x => x
-        //         ? Object.fromEntries(Object.entries(x.contract)
-        //             .map(([k, v]) => [
-        //                 k,
-        //                 v.map(([k, v]) => [])
-        //                 // {
-        //                 //     abi: v.abi,
-        //                 //     bytecode: v.evm.bytecode.object
-        //                 // } as { abi: unknown, bytecode: string }|undefined
-        //             ]
-        //             )) : x
-        //     )
-
         // parse output
-        return JSON.parse(out)
+        return solcOut.parse(JSON.parse(out))
 
     }
 

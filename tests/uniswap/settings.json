@@ -1,0 +1,26 @@
+{
+  "language": "Solidity",
+  "sources": {
+    "UniversalRouter.sol": {
+      "urls": [
+        "/root/solc/tests/uniswap/UniversalRouter.sol"
+      ]
+    }
+  },
+  "settings": {
+    "optimizer": {
+      "enabled": true,
+      "runs": 1000000
+    },
+    "outputSelection": {
+      "UniversalRouter.sol": {
+        "UniversalRouter": [
+          "evm.bytecode.object",
+          "abi"
+        ]
+      }
+    },
+    "evmVersion": "london",
+    "viaIR": true
+  }
+}

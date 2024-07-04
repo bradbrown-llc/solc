@@ -33,7 +33,12 @@ export class Solc {
         // compile
         const stdin = 'piped', stderr = 'piped', stdout = 'piped'
         const bin = `${solcDir}/${version}`
-        const args = ['--standard-json']
+        const csl:string[] = []
+        const sources:Record<string,{ urls:string[] }>
+            = JSON.parse(json).sources
+        const files = Object.values(sources)
+        for (const file of files) csl.push(file.urls.at(0)!)
+        const args = ['--standard-json', '--allow-paths', csl.join(',')]
         const options = { args, stdin, stdout, stderr } as const
         const proc = new Deno.Command(bin, options).spawn()
         const writer = proc.stdin.getWriter()
@@ -43,7 +48,6 @@ export class Solc {
         const cmdOut = await proc.output()
         const out = new TextDecoder().decode(cmdOut.stdout)
 
-        console.log(out)
         // parse output
         return solcOut.parse(JSON.parse(out))
 

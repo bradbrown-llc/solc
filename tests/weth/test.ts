@@ -7,7 +7,7 @@ const version = '0.4.18'
 const json = Deno.readTextFileSync(`${projDir}/settings.json`)
 await Solc.up(solcDir, version)
 const foo = await Solc.compile(solcDir, version, json)
-console.log(foo.contracts!['WETH9.sol']!['WETH9']!.evm.bytecode.object)
+console.log(foo.contracts!['WETH9.sol']!['WETH9']!.evm!.bytecode!.object)
 
 // if (!foo.contracts) throw new Error('no contracts')
 // const booSol = foo.contracts['boo.sol']

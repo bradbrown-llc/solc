@@ -16,6 +16,6 @@
         ]
       }
     },
-    "evmVersion": "paris"
+    "evmVersion": "byzantium"
   }
 }

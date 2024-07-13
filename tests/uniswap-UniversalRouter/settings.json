@@ -3,7 +3,7 @@
   "sources": {
     "UniversalRouter.sol": {
       "urls": [
-        "/root/solc/tests/uniswap/UniversalRouter.sol"
+        "/root/solc/tests/uniswap-UniversalRouter/UniversalRouter.sol"
       ]
     }
   },

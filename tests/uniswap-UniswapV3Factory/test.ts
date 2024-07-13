@@ -1,19 +1,18 @@
 import { fromFileUrl } from "https://deno.land/std@0.224.0/path/mod.ts"
 import { Solc } from "../../Solc.ts";
+import { assert } from "https://deno.land/std@0.224.0/assert/assert.ts";
 
-const solcDir = fromFileUrl(import.meta.resolve('../../.cache/'))
-const projDir = fromFileUrl(import.meta.resolve('./'))
-const version = '0.7.6'
-const json = Deno.readTextFileSync(`${projDir}/settings.json`)
-await Solc.up(solcDir, version)
-const foo = await Solc.compile(solcDir, version, json)
-console.log(foo)
-console.log(foo.contracts!['UniswapV3Pool.sol']!['UniswapV3Pool']!.evm.bytecode!.object)
-console.log(foo.contracts!['UniswapV3Factory.sol']!['UniswapV3Factory']!.evm.bytecode!.object)
-
-// if (!foo.contracts) throw new Error('no contracts')
-// const booSol = foo.contracts['boo.sol']
-// if (!booSol) throw new Error('no boo.sol')
-// const baz = foo.contracts['boo.sol']!['Baz']
-// if (!baz) throw new Error('no Baz')
-// console.log(baz)
+const solcDir = fromFileUrl(import.meta.resolve('../../.cache'))
+const projDir = fromFileUrl(import.meta.resolve('./.'))
+const solcJsonInputPath = `${projDir}/settings.json`
+const results = await Solc.compile(solcJsonInputPath, solcDir)
+const bytecode0 = results?.contracts?.['UniswapV3Factory.sol']?.['UniswapV3Factory']?.evm?.bytecode?.object
+const bytecode1 = results?.contracts?.['UniswapV3Pool.sol']?.['UniswapV3Pool']?.evm?.bytecode?.object
+Deno.test('bytecode0 exists', () => {
+    console.log(bytecode0)
+    assert(bytecode0)
+})
+Deno.test('bytecode1 exists', () => {
+    console.log(bytecode1)
+    assert(bytecode1)
+})

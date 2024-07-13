@@ -1,4 +1,5 @@
 import * as SV from 'https://deno.land/std@0.224.0/semver/mod.ts'
+import * as Path from 'https://deno.land/std@0.224.0/path/mod.ts'
 import * as schemas from './schemas/mod.ts'
 
 export class Solc {
@@ -8,11 +9,13 @@ export class Solc {
         // get solcJsonInput and build a list of paths to allow later
         const solcJsonInputText = await Deno.readTextFile(solcJsonInputPath)
         const solcJsonInput = await schemas.solcJsonInput.parseAsync(JSON.parse(solcJsonInputText))
+        for (const source of Object.values(solcJsonInput.sources))
+            source.urls = source.urls.map(url => Path.resolve(Path.dirname(solcJsonInputPath), url))
         const allowPaths:string[] = []
         for (const source of Object.values(solcJsonInput.sources))
             allowPaths.push(source.urls.at(0)!)
     
-        // get source url paths to build --allow-paths
+        // get source url paths to get code and SemVers from
         const outputSelectionSources = Object.keys(solcJsonInput.settings.outputSelection)
         const sourcePaths:string[] = []
         for (const source of outputSelectionSources) {
@@ -67,7 +70,7 @@ export class Solc {
     
         // compile
         const args = ['--standard-json', '--allow-paths', allowPaths.join(',')]
-        const options = { args, stdin: 'piped', stdout: 'piped', stderr: 'piped' } as const
+        const options = { args, stdin: 'piped', stdout: 'piped', stderr: 'piped', cwd: Path.dirname(solcJsonInputPath) } as const
         const proc = new Deno.Command(`${solcDir}/${release}`, options).spawn()
         const writer = proc.stdin.getWriter()
         await writer.write(new TextEncoder().encode(solcJsonInputText))

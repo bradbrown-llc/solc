@@ -3,7 +3,7 @@
   "sources": {
     "WETH9.sol": {
       "urls": [
-        "/root/solc/tests/weth/WETH9.sol"
+        "./WETH9.sol"
       ]
     }
   },

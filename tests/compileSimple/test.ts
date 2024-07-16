@@ -9,7 +9,7 @@ const code = Deno.readTextFileSync(fromFileUrl(import.meta.resolve('./Resolver.s
     .replace(/\?W\?+/, ''.padEnd(40, '2'))
 
 const results = await Solc.compileSimple(code, solcDir)
-const bytecode = results?.contracts?.['']?.['Resolver']?.evm?.bytecode?.object
+const bytecode = results?.contracts?.['<stdin>']?.['Resolver']?.evm?.bytecode?.object
 Deno.test('bytecode exists', () => {
     console.log(bytecode)
     assert(bytecode)

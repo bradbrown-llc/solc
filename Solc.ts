@@ -96,7 +96,7 @@ export class Solc {
             : 'paris'
         await writer.write(new TextEncoder().encode(JSON.stringify({
             language: 'Solidity',
-            sources: { '': { content: code } },
+            sources: { '<stdin>': { content: code } },
             settings: {
                 outputSelection: { '*': { '*': ['evm.bytecode.object'] } },
                 evmVersion

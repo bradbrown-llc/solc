@@ -105,7 +105,6 @@ export class Solc {
         await writer.close()
         const cmdOut = await proc.output()
         const stdout = new TextDecoder().decode(cmdOut.stdout)
-        console.log(stdout)
         return await schemas.solcCompilationOutput.parseAsync(JSON.parse(stdout))
         
     }

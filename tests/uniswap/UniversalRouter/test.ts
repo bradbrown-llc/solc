@@ -11,3 +11,8 @@ Deno.test('bytecode exists', () => {
     console.log(bytecode)
     assert(bytecode)
 })
+Deno.test('bytecode length < 24576', () => {
+    assert(bytecode)
+    console.log(bytecode.length / 2)
+    assert(bytecode.length / 2 < 24576)
+})

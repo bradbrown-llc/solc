@@ -19,11 +19,9 @@ export class Solc {
             allowPaths.push(source.urls.at(0)!)
     
         // get source url paths to get code and SemVers from
-        const outputSelectionSources = Object.keys(solcJsonInput.settings.outputSelection)
+        const sources = Object.keys(solcJsonInput.sources)
         const sourcePaths:string[] = []
-        for (const source of outputSelectionSources) {
-            if (!solcJsonInput.sources[source])
-                throw new Error(`outputSelection source ${source} not in sources`)
+        for (const source of sources) {
             if (!solcJsonInput.sources[source].urls.at(0))
                 throw new Error(`no url for source ${source}`)
             sourcePaths.push(solcJsonInput.sources[source].urls.at(0)!)
@@ -32,7 +30,7 @@ export class Solc {
         // get SemVer Ranges from code (and code from source urls)
         const sourceContents:string[] = []
         for (const path of sourcePaths) sourceContents.push(await Deno.readTextFile(path))
-        const ranges = sourceContents.map(solidityToSemVerRange)
+        const ranges = sourceContents.map(solidityToSemVerRange).filter(x=>x) as SV.Range[]
     
         // make sure we have a relatively up-to-date list of solc versions
         await updateSolcVersionsList(solcDir)
@@ -69,6 +67,7 @@ export class Solc {
 
         // get SemVer range from code
         const range = solidityToSemVerRange(code)
+        if (!range) throw new Error('no solidity version detected')
 
         // turn list file into object, get versions, find best version for our range
         // get release

@@ -1,0 +1,36 @@
+{
+    "language": "Solidity",
+    "sources": {
+        "@openzeppelin/contracts/math/SafeMath.sol": { "urls": ["./@openzeppelin/contracts/math/SafeMath.sol"] },
+        "@openzeppelin/contracts/math/SignedSafeMath.sol": { "urls": ["./@openzeppelin/contracts/math/SignedSafeMath.sol"] },
+        "@openzeppelin/contracts/utils/Strings.sol": { "urls": ["./@openzeppelin/contracts/utils/Strings.sol"] },
+        "@uniswap/v3-core/contracts/interfaces/pool/IUniswapV3PoolActions.sol": { "urls": ["./@uniswap/v3-core/contracts/interfaces/pool/IUniswapV3PoolActions.sol"] },
+        "@uniswap/v3-core/contracts/interfaces/pool/IUniswapV3PoolDerivedState.sol": { "urls": ["./@uniswap/v3-core/contracts/interfaces/pool/IUniswapV3PoolDerivedState.sol"] },
+        "@uniswap/v3-core/contracts/interfaces/pool/IUniswapV3PoolEvents.sol": { "urls": ["./@uniswap/v3-core/contracts/interfaces/pool/IUniswapV3PoolEvents.sol"] },
+        "@uniswap/v3-core/contracts/interfaces/pool/IUniswapV3PoolImmutables.sol": { "urls": ["./@uniswap/v3-core/contracts/interfaces/pool/IUniswapV3PoolImmutables.sol"] },
+        "@uniswap/v3-core/contracts/interfaces/pool/IUniswapV3PoolOwnerActions.sol": { "urls": ["./@uniswap/v3-core/contracts/interfaces/pool/IUniswapV3PoolOwnerActions.sol"] },
+        "@uniswap/v3-core/contracts/interfaces/pool/IUniswapV3PoolState.sol": { "urls": ["./@uniswap/v3-core/contracts/interfaces/pool/IUniswapV3PoolState.sol"] },
+        "@uniswap/v3-core/contracts/interfaces/IUniswapV3Pool.sol": { "urls": ["./@uniswap/v3-core/contracts/interfaces/IUniswapV3Pool.sol"] },
+        "@uniswap/v3-core/contracts/libraries/BitMath.sol": { "urls": ["./@uniswap/v3-core/contracts/libraries/BitMath.sol"] },
+        "@uniswap/v3-core/contracts/libraries/FullMath.sol": { "urls": ["./@uniswap/v3-core/contracts/libraries/FullMath.sol"] },
+        "@uniswap/v3-core/contracts/libraries/TickMath.sol": { "urls": ["./@uniswap/v3-core/contracts/libraries/TickMath.sol"] },
+        "base64-sol/base64.sol": { "urls": ["./base64-sol/base64.sol"] },
+        "HexStrings.sol": { "urls": ["./HexStrings.sol"] },
+        "NFTDescriptor.sol": { "urls": ["./NFTDescriptor.sol"] },
+        "NFTSVG.sol": { "urls": ["./NFTSVG.sol"] }
+    },
+    "settings": {
+        "optimizer": {
+            "enabled": true,
+            "runs": 800
+        },
+        "outputSelection": {
+            "NFTDescriptor.sol": {
+                "NFTDescriptor": [
+                    "evm.bytecode.object"
+                ]
+            }
+        },
+        "evmVersion": "istanbul"
+    }
+}

@@ -1,0 +1,54 @@
+{
+    "language": "Solidity",
+    "sources": {
+        "@openzeppelin/contracts/introspection/IERC165.sol": { "urls": ["./@openzeppelin/contracts/introspection/IERC165.sol"] },
+        "@openzeppelin/contracts/math/SafeMath.sol": { "urls": ["./@openzeppelin/contracts/math/SafeMath.sol"] },
+        "@openzeppelin/contracts/math/SignedSafeMath.sol": { "urls": ["./@openzeppelin/contracts/math/SignedSafeMath.sol"] },
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol": { "urls": ["./@openzeppelin/contracts/token/ERC20/IERC20.sol"] },
+        "@openzeppelin/contracts/token/ERC721/IERC721.sol": { "urls": ["./@openzeppelin/contracts/token/ERC721/IERC721.sol"] },
+        "@openzeppelin/contracts/token/ERC721/IERC721Enumerable.sol": { "urls": ["./@openzeppelin/contracts/token/ERC721/IERC721Enumerable.sol"] },
+        "@openzeppelin/contracts/token/ERC721/IERC721Metadata.sol": { "urls": ["./@openzeppelin/contracts/token/ERC721/IERC721Metadata.sol"] },
+        "@openzeppelin/contracts/utils/Strings.sol": { "urls": ["./@openzeppelin/contracts/utils/Strings.sol"] },
+        "@uniswap/lib/contracts/libraries/AddressStringUtil.sol": { "urls": ["./@uniswap/lib/contracts/libraries/AddressStringUtil.sol"] },
+        "@uniswap/lib/contracts/libraries/SafeERC20Namer.sol": { "urls": ["./@uniswap/lib/contracts/libraries/SafeERC20Namer.sol"] },
+        "@uniswap/v3-core/contracts/interfaces/pool/IUniswapV3PoolActions.sol": { "urls": ["./@uniswap/v3-core/contracts/interfaces/pool/IUniswapV3PoolActions.sol"] },
+        "@uniswap/v3-core/contracts/interfaces/pool/IUniswapV3PoolDerivedState.sol": { "urls": ["./@uniswap/v3-core/contracts/interfaces/pool/IUniswapV3PoolDerivedState.sol"] },
+        "@uniswap/v3-core/contracts/interfaces/pool/IUniswapV3PoolEvents.sol": { "urls": ["./@uniswap/v3-core/contracts/interfaces/pool/IUniswapV3PoolEvents.sol"] },
+        "@uniswap/v3-core/contracts/interfaces/pool/IUniswapV3PoolImmutables.sol": { "urls": ["./@uniswap/v3-core/contracts/interfaces/pool/IUniswapV3PoolImmutables.sol"] },
+        "@uniswap/v3-core/contracts/interfaces/pool/IUniswapV3PoolOwnerActions.sol": { "urls": ["./@uniswap/v3-core/contracts/interfaces/pool/IUniswapV3PoolOwnerActions.sol"] },
+        "@uniswap/v3-core/contracts/interfaces/pool/IUniswapV3PoolState.sol": { "urls": ["./@uniswap/v3-core/contracts/interfaces/pool/IUniswapV3PoolState.sol"] },
+        "@uniswap/v3-core/contracts/interfaces/IUniswapV3Pool.sol": { "urls": ["./@uniswap/v3-core/contracts/interfaces/IUniswapV3Pool.sol"] },
+        "@uniswap/v3-core/contracts/libraries/BitMath.sol": { "urls": ["./@uniswap/v3-core/contracts/libraries/BitMath.sol"] },
+        "@uniswap/v3-core/contracts/libraries/FullMath.sol": { "urls": ["./@uniswap/v3-core/contracts/libraries/FullMath.sol"] },
+        "@uniswap/v3-core/contracts/libraries/TickMath.sol": { "urls": ["./@uniswap/v3-core/contracts/libraries/TickMath.sol"] },
+        "base64-sol/base64.sol": { "urls": ["./base64-sol/base64.sol"] },
+        "interfaces/IERC20Metadata.sol": { "urls": ["./interfaces/IERC20Metadata.sol"] },
+        "interfaces/IERC721Permit.sol": { "urls": ["./interfaces/IERC721Permit.sol"] },
+        "interfaces/INonfungiblePositionManager.sol": { "urls": ["./interfaces/INonfungiblePositionManager.sol"] },
+        "interfaces/INonfungibleTokenPositionDescriptor.sol": { "urls": ["./interfaces/INonfungibleTokenPositionDescriptor.sol"] },
+        "interfaces/IPeripheryImmutableState.sol": { "urls": ["./interfaces/IPeripheryImmutableState.sol"] },
+        "interfaces/IPeripheryPayments.sol": { "urls": ["./interfaces/IPeripheryPayments.sol"] },
+        "interfaces/IPoolInitializer.sol": { "urls": ["./interfaces/IPoolInitializer.sol"] },
+        "libraries/ChainId.sol": { "urls": ["./libraries/ChainId.sol"] },
+        "libraries/HexStrings.sol": { "urls": ["./libraries/HexStrings.sol"] },
+        "libraries/NFTDescriptor.sol": { "urls": ["./libraries/NFTDescriptor.sol"] },
+        "libraries/NFTSVG.sol": { "urls": ["./libraries/NFTSVG.sol"] },
+        "libraries/PoolAddress.sol": { "urls": ["./libraries/PoolAddress.sol"] },
+        "libraries/TokenRatioSortOrder.sol": { "urls": ["./libraries/TokenRatioSortOrder.sol"] },
+        "NonfungibleTokenPositionDescriptor.sol": { "urls": ["./NonfungibleTokenPositionDescriptor.sol"] }
+    },
+    "settings": {
+        "optimizer": {
+            "enabled": true,
+            "runs": 1000
+        },
+        "outputSelection": {
+            "NonfungibleTokenPositionDescriptor.sol": {
+                "NonfungibleTokenPositionDescriptor": [
+                    "evm.bytecode.object"
+                ]
+            }
+        },
+        "evmVersion": "istanbul"
+    }
+}

@@ -7,11 +7,14 @@ import { updateSolcVersionsList } from './updateSolcVersionsList.ts'
 
 export async function compileJson(solcJsonInputPath:string, solcDir:string) {
 
+    const absSolcDir = Path.resolve(solcDir)
+    const absSolcJsonInputPath = Path.resolve(solcJsonInputPath)
+
     // get solcJsonInput and build a list of paths to allow later
-    const solcJsonInputText = await Deno.readTextFile(solcJsonInputPath)
+    const solcJsonInputText = await Deno.readTextFile(absSolcJsonInputPath)
     const solcJsonInput = await schemas.solcJsonInput.parseAsync(JSON.parse(solcJsonInputText))
     for (const source of Object.values(solcJsonInput.sources))
-        source.urls = source.urls.map(url => Path.resolve(Path.dirname(solcJsonInputPath), url))
+        source.urls = source.urls.map(url => Path.resolve(Path.dirname(absSolcJsonInputPath), url))
     const allowPaths:string[] = []
     for (const source of Object.values(solcJsonInput.sources))
         allowPaths.push(source.urls.at(0)!)
@@ -31,11 +34,11 @@ export async function compileJson(solcJsonInputPath:string, solcDir:string) {
     const ranges = sourceContents.map(solidityToSemVerRange).filter(x=>x) as SV.Range[]
 
     // make sure we have a relatively up-to-date list of solc versions
-    await updateSolcVersionsList(solcDir)
+    await updateSolcVersionsList(absSolcDir)
 
     // turn list file into object, get versions, find best version for our ranges
     // get release from best version
-    const solcVersionsListText = await Deno.readTextFile(`${solcDir}/versions.json`)
+    const solcVersionsListText = await Deno.readTextFile(`${absSolcDir}/versions.json`)
     const solcVersionsList = await schemas.solcVersionsList.parseAsync(JSON.parse(solcVersionsListText))
     let versions = Object.keys(solcVersionsList.releases).map(SV.parse)
     for (const range of ranges) versions = versions.filter(v => SV.satisfies(v, range))
@@ -44,12 +47,12 @@ export async function compileJson(solcJsonInputPath:string, solcDir:string) {
     const release = solcVersionsList.releases[`${v.major}.${v.minor}.${v.patch}`]
 
     // acquire the release if needed
-    await acquireSolcRelease(solcDir, release)
+    await acquireSolcRelease(absSolcDir, release)
 
     // compile
     const args = ['--standard-json', '--allow-paths', allowPaths.join(',')]
-    const options = { args, stdin: 'piped', stdout: 'piped', stderr: 'piped', cwd: Path.dirname(solcJsonInputPath) } as const
-    const proc = new Deno.Command(`${solcDir}/${release}`, options).spawn()
+    const options = { args, stdin: 'piped', stdout: 'piped', stderr: 'piped', cwd: Path.dirname(absSolcJsonInputPath) } as const
+    const proc = new Deno.Command(`${absSolcDir}/${release}`, options).spawn()
     const writer = proc.stdin.getWriter()
     await writer.write(new TextEncoder().encode(solcJsonInputText))
     await writer.close()

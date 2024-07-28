@@ -13,20 +13,10 @@ export async function compileJson(solcJsonInputPath:string, solcDir:string) {
     // get solcJsonInput and build a list of paths to allow later
     const solcJsonInputText = await Deno.readTextFile(absSolcJsonInputPath)
     const solcJsonInput = await schemas.solcJsonInput.parseAsync(JSON.parse(solcJsonInputText))
-    for (const source of Object.values(solcJsonInput.sources))
-        source.urls = source.urls.map(url => Path.resolve(Path.dirname(absSolcJsonInputPath), url))
-    const allowPaths:string[] = []
-    for (const source of Object.values(solcJsonInput.sources))
-        allowPaths.push(source.urls.at(0)!)
 
-    // get source url paths to get code and SemVers from
-    const sources = Object.keys(solcJsonInput.sources)
-    const sourcePaths:string[] = []
-    for (const source of sources) {
-        if (!solcJsonInput.sources[source].urls.at(0))
-            throw new Error(`no url for source ${source}`)
-        sourcePaths.push(solcJsonInput.sources[source].urls.at(0)!)
-    }
+    // get source paths
+    const sourcePaths = await Promise.all(Object.values(solcJsonInput.sources).map(source =>
+        Deno.realPath(Path.resolve(Path.dirname(absSolcJsonInputPath), source.urls.at(0)!))))
 
     // get SemVer Ranges from code (and code from source urls)
     const sourceContents:string[] = []
@@ -50,7 +40,7 @@ export async function compileJson(solcJsonInputPath:string, solcDir:string) {
     await acquireSolcRelease(absSolcDir, release)
 
     // compile
-    const args = ['--standard-json', '--allow-paths', allowPaths.join(',')]
+    const args = ['--standard-json', '--allow-paths', sourcePaths.join(',')]
     const options = { args, stdin: 'piped', stdout: 'piped', stderr: 'piped', cwd: Path.dirname(absSolcJsonInputPath) } as const
     const proc = new Deno.Command(`${absSolcDir}/${release}`, options).spawn()
     const writer = proc.stdin.getWriter()

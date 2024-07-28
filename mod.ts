@@ -1,2 +1,2 @@
-export * from './Solc.ts'
+export * from './lib/mod.ts'
 export * as schemas from './schemas/mod.ts'

@@ -1,3 +1,5 @@
 export * from './acquireSolcRelease.ts'
+export * from './compileCode.ts'
+export * from './compileJson.ts'
 export * from './solidityToSemVerRange.ts'
 export * from './updateSolcVersionsList.ts'

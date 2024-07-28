@@ -65,7 +65,8 @@
         "outputSelection": {
             "NonfungiblePositionManager.sol": {
                 "NonfungiblePositionManager": [
-                    "evm.bytecode.object"
+                    "evm.bytecode.object",
+                    "abi"
                 ]
             }
         },
